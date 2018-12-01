@@ -4,6 +4,7 @@ import time
 import json
 
 com_port = '/dev/ttyACM0'
+# com_port = '/dev/ttyACM1'
 baudrate = 9600
 MESSAGE_FIELDS = ['sensorID', 'lat', 'lng', 'force', 'gyroscope_x', 'gyroscope_y', 'gyroscope_z']
 
@@ -38,6 +39,7 @@ class GateWaysNode():
             self.debug('Reading serial data')
             try:
                 values = self.read_serial_data()
+                self.clear_serial_buffer()
                 self.debug(values)
                 if not self.validate_data(values):
                     self.debug('Invalid received data')
@@ -52,9 +54,8 @@ class GateWaysNode():
             
             # data = self.read_serial_data()
             # self.debug(data)
-
-            self.clear_serial_buffer()
-            time.sleep(1)
+            
+            time.sleep(0.5)
 
     def listen(self, topic):
         self.utm_mqtt.subscribe(topic)
@@ -98,7 +99,7 @@ class GateWaysNode():
             'gyroscope': {}
         }
         for key in json_msg:
-            if key == 'lat' or key == 'lng':
+            if key == 'lat' or key == 'lng' or key == 'force':
                 return_mqtt_msg[key] = float(json_msg[key])
             elif key == 'gyroscope_x' or key == 'gyroscope_y' or key == 'gyroscope_z':
                 return_mqtt_msg['gyroscope'].update({                   
