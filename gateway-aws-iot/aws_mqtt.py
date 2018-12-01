@@ -9,7 +9,7 @@ host = 'a3n0rmdkx656cj.iot.us-west-2.amazonaws.com'
 
 port = "443"
 region = 'us-west-2'
-rootCAPath = '/home/engineer/certs/root-CA.crt'
+rootCAPath = '/home/pi/certs/root-CA.crt'
 
 
 class AWSMQTT(AWSIoTMQTTClient):
