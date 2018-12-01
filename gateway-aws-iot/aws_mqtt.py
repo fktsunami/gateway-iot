@@ -8,7 +8,7 @@ cognitoIdentityPoolID = 'us-west-2:6edcd2e6-3900-4caa-adf4-2b082359d4fa'
 host = 'a3n0rmdkx656cj.iot.us-west-2.amazonaws.com'
 port = "443"
 region = 'us-west-2'
-rootCAPath = '/home/engineer/certs/root-CA.crt'
+rootCAPath = '/home/pi/certs/root-CA.crt'
 
 
 class AWSMQTT(AWSIoTMQTTClient):
