@@ -80,7 +80,7 @@ class GateWaysNode():
     
     def create_mqtt_message(self, values_in_str):
         self.debug('create_mqtt_message')
-        splited_values = values_in_str.split('-')        
+        splited_values = values_in_str.split('_')        
         # for s in splited_values:
             # print(s)
             # if s.isdigit():
@@ -100,8 +100,16 @@ class GateWaysNode():
         }
         for key in json_msg:
             if key == 'lat' or key == 'lng' or key == 'force':
-                return_mqtt_msg[key] = float(json_msg[key])
+                # print(type(json_msg[key]))
+                # return_mqtt_msg[key] = float(json_msg[key])
+                # print(repr(json_msg[key]))
+                # return_mqtt_msg[key] = map(float, json_msg[key].strip().split('\r\n'))[0]
+                return_mqtt_msg[key] = float(json_msg[key].rstrip('\x00'))
             elif key == 'gyroscope_x' or key == 'gyroscope_y' or key == 'gyroscope_z':
+                # print(repr(json_msg[key]))
+                json_msg[key] = json_msg[key].strip().split('\r\n')[0]
+                json_msg[key] = json_msg[key].rstrip('\x00')
+                # print(repr(json_msg[key]))
                 return_mqtt_msg['gyroscope'].update({                   
                         key: float(json_msg[key])
                 })
@@ -115,7 +123,7 @@ class GateWaysNode():
         return return_mqtt_msg
 
     def validate_data(self, values_in_str):
-        values_in_str = values_in_str.split('-')
+        values_in_str = values_in_str.split('_')
         if len(values_in_str) != len(MESSAGE_FIELDS):
             self.debug('Invalid format')
             return False

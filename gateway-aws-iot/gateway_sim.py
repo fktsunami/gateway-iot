@@ -31,5 +31,5 @@ if __name__ == '__main__':
                 topic = sensor_ids[index] + '/tsunamiSensor'
                 if not gateway_sim_mqtt.publish(topic, json.dumps(msg)):
                     print('Publish failed')
-                time.sleep(0.5)               
+                time.sleep(1)               
         
