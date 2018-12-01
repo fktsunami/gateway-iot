@@ -11,9 +11,6 @@ port = "443"
 region = 'us-west-2'
 rootCAPath = '/home/engineer/certs/root-CA.crt'
 
-# cognitoIdentityPoolID = 'us-west-2:03a5c970-ea82-4f31-9046-e84391c37180'
-# host = 'aak6simcpykjh.iot.us-west-2.amazonaws.com'
-
 
 class AWSMQTT(AWSIoTMQTTClient):
     def __init__(self, clientId):
