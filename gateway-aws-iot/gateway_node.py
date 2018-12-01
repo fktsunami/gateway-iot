@@ -14,6 +14,7 @@ class GateWaysNode():
         self.utm_mqtt.setCallbacks(self.mqttCallback)                
         self._publish_topic = publish_topic
         self._serial_com = serial.Serial(com_port, baudrate)
+        self._gateway_id = clientId
 
     def mqttCallback(self, client, userdata, message):
         str = message.payload
@@ -105,7 +106,10 @@ class GateWaysNode():
                 })
             else:
                 return_mqtt_msg[key] = json_msg[key]
-
+        
+        # Add gateway id
+        return_mqtt_msg['gatewayId'] = self._gateway_id
+        
         self.debug(return_mqtt_msg)
         return return_mqtt_msg
 
