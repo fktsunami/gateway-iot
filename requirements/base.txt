@@ -1,0 +1,5 @@
+pyserial
+boto3
+AWSIoTPythonSDK
+enum34
+pyyaml
